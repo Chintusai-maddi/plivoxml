@@ -1,0 +1,46 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plivo Outbound Call Example</title>
+    <script src="https://s3.amazonaws.com/plivobrowsersdk/lib/plivo.min.js"></script>
+</head>
+<body>
+    <h1>Plivo Outbound Call Example</h1>
+
+    <input type="text" id="destinationNumber" placeholder="Destination Number">
+    <button onclick="makeOutboundCall()">Make Call</button>
+
+    <script>
+        Plivo.init({
+            debug: 'DEBUG',
+            permOnClick: true
+        });
+
+        function makeOutboundCall() {
+            var authId = 'MAMZVIYJBJZGFLZGJLZD';
+            var authToken = 'ODA4Y2QyM2U0YWE4MDBhMGYxNjEwYjEzMGEyOTZi';
+
+            Plivo.conn.authenticate(authId, authToken);
+
+            var destinationNumber = document.getElementById('destinationNumber').value;
+
+            var call = Plivo.conn.call(destinationNumber);
+            console.log('Outgoing call initiated.');
+
+            call.on('connected', function() {
+                console.log('Call connected.');
+            });
+
+            call.on('ended', function() {
+                console.log('Call ended.');
+            });
+
+            call.on('error', function() {
+                console.log('Call error.');
+            });
+        }
+    </script>
+</body>
+</html>
